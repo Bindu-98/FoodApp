@@ -62,9 +62,10 @@ public class Item {
         this.price = price;
     }
 
-    public Item(String name, float price) {
+    public Item(String name, float price, Restaurant restaurant) {
         this.name = name;
         this.price = price;
+        this.restaurant = restaurant;
     }
 
     public Item() {
@@ -117,5 +118,9 @@ public class Item {
                 ", price=" + price +
                 ", customersOrders=" + customersOrders +
                 '}';
+    }
+
+    public void assignResturant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

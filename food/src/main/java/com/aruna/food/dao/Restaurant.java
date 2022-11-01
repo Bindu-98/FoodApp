@@ -66,14 +66,21 @@ public class Restaurant {
         this.address = address;
     }
 
+    public Restaurant(String name, String address, Set<Item> items) {
+        Name = name;
+        this.address = address;
+        this.items = items;
+    }
+
     public Restaurant(String name, String address) {
         Name = name;
         this.address = address;
-
     }
 
     public Restaurant() {
     }
+
+
 
 
     //Getters and Setters

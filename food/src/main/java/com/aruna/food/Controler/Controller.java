@@ -30,12 +30,34 @@ public class Controller {
 
 
 
+    //GetMapping
+    //Get the List Of Restaurants
+    // http://localhost:8080/api/v1/RestaurantList
+    @GetMapping("RestaurantList")
+    public List<Restaurant> findRestaurantList(){
+        return restaurantRepository.findAll();
+    }
 
+
+    //Get the List Of Items in the Restaurant
+    // http://localhost:8080/api/v1/Restaurant/{restaurantId}
+    @GetMapping("Restaurant/{restaurantId}")
+    public Set<Item> getRestaurantItemList( @PathVariable Long restaurantId){
+        Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
+        Set<Item> restaurantItems = restaurant.getItems();
+        return restaurantItems;
+    }
+
+
+    //Note : Item ID is unique no need the Restaurant to select the Item
+    //Place the Order with the Item Number and Customer Number
+    // http://localhost:8080/api/v1/items/{itemId}/customer/{customerId}
     @PutMapping("items/{itemId}/customer/{customerId}")
     public Item placeOrder(
             @PathVariable Long itemId,
             @PathVariable Long customerId
     ){
+
        System.out.println(itemId + customerId);
         Set<Customer> customerSet = null;
 
@@ -53,15 +75,31 @@ public class Controller {
     }
 
 
+
+
+
+    //Enter Resturant Item
+    @PutMapping("items/{itemId}/restaurant/{restaurantID}")
+    public Item  enterResautrantItem(
+            @PathVariable Long itemId,
+            @PathVariable Long restaurantID
+    ){
+
+        Item item = itemRepository.findById(itemId).get();
+        Restaurant restaurant= restaurantRepository.findById(restaurantID).get();
+
+        item.assignResturant(restaurant);
+
+
+        return itemRepository.save(item);
+    }
+
+
     @PostMapping("inputResturantList")
     public Restaurant additems(@RequestBody Restaurant restaurant){
         return restaurantRepository.save(restaurant);
     }
 
-    @GetMapping("findRestaurantList")
-    public List<Restaurant> findRestaurantList(){
-        return restaurantRepository.findAll();
-    }
 
 
 
