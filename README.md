@@ -15,5 +15,5 @@ http://localhost:8080/api/v1/items/{Item_ID}/customer/{Customer_ID}
 
 ## Note:
 1. No need to enterdata to test the Api, Dummy data for Restautant, Customer and Item is already added.
-2. The Database Confihured is PostgreSQL.
+2. The Database Configured in PostgreSQL.
 
