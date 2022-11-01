@@ -110,6 +110,9 @@ public class Item {
         this.customersOrders = customersOrders;
     }
 
+    public void assignResturant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
     @Override
     public String toString() {
         return "Item{" +
@@ -120,7 +123,4 @@ public class Item {
                 '}';
     }
 
-    public void assignResturant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
 }

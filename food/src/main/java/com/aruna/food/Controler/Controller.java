@@ -1,12 +1,13 @@
 package com.aruna.food.Controler;
 
-import com.aruna.food.Repositiry.CustomerRepository;
-import com.aruna.food.Repositiry.ItemRepository;
-import com.aruna.food.Repositiry.RestaurantRepository;
+import com.aruna.food.Service.CustomerService;
+import com.aruna.food.Service.ItemService;
+import com.aruna.food.Service.RestaurantService;
 import com.aruna.food.dao.Customer;
 import com.aruna.food.dao.Item;
 import com.aruna.food.dao.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,18 +17,29 @@ import java.util.Set;
 @RequestMapping(path = "api/v1")
 public class Controller {
 
-    private final CustomerRepository customerRepository;
-    private final ItemRepository itemRepository;
-    private final RestaurantRepository restaurantRepository;
+//    private final CustomerRepository customerRepository;
+//    private final ItemRepository itemRepository;
+//    private final RestaurantRepository restaurantRepository;
+//
 
+//    @Autowired
+//    public Controller(CustomerRepository customerRepository, ItemRepository itemRepository, RestaurantRepository restaurantRepository) {
+//        this.customerRepository = customerRepository;
+//        this.itemRepository = itemRepository;
+//        this.restaurantRepository = restaurantRepository;
+//    }
+
+
+    private final CustomerService customerService;
+    private final RestaurantService restaurantService;
+    private final ItemService itemService;
 
     @Autowired
-    public Controller(CustomerRepository customerRepository, ItemRepository itemRepository, RestaurantRepository restaurantRepository) {
-        this.customerRepository = customerRepository;
-        this.itemRepository = itemRepository;
-        this.restaurantRepository = restaurantRepository;
+    public Controller(CustomerService customerService, RestaurantService restaurantService, ItemService itemService) {
+        this.customerService = customerService;
+        this.restaurantService = restaurantService;
+        this.itemService = itemService;
     }
-
 
 
     //GetMapping
@@ -35,7 +47,7 @@ public class Controller {
     // http://localhost:8080/api/v1/RestaurantList
     @GetMapping("RestaurantList")
     public List<Restaurant> findRestaurantList(){
-        return restaurantRepository.findAll();
+        return restaurantService.getAllRestaurants();
     }
 
 
@@ -43,7 +55,7 @@ public class Controller {
     // http://localhost:8080/api/v1/Restaurant/{restaurantId}
     @GetMapping("Restaurant/{restaurantId}")
     public Set<Item> getRestaurantItemList( @PathVariable Long restaurantId){
-        Restaurant restaurant = restaurantRepository.findById(restaurantId).get();
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantId);
         Set<Item> restaurantItems = restaurant.getItems();
         return restaurantItems;
     }
@@ -61,8 +73,8 @@ public class Controller {
        System.out.println(itemId + customerId);
         Set<Customer> customerSet = null;
 
-        Item item = itemRepository.findById(itemId).get();
-        Customer customer = customerRepository.findById(customerId).get();
+        Item item = itemService.getItemById(itemId);
+        Customer customer = customerService.getCustomerById(customerId);
 
        //System.out.println("Item : " + item.toString() + "\nCustomer : " + customer.toString());
 
@@ -71,48 +83,42 @@ public class Controller {
         item.setCustomersOrders(customerSet);
 
 
-        return itemRepository.save(item);
+        return itemService.placeOrder(item);
     }
 
 
 
 
-
-
-
-
-
     //Other EndPoints
+
+    //Assign Items To Restaurants
     @PutMapping("items/{itemId}/restaurant/{restaurantID}")
     public Item  enterResautrantItem(
             @PathVariable Long itemId,
             @PathVariable Long restaurantID
     ){
 
-        Item item = itemRepository.findById(itemId).get();
-        Restaurant restaurant= restaurantRepository.findById(restaurantID).get();
-
+        Item item = itemService.getItemById(itemId);
+        Restaurant restaurant = restaurantService.getRestaurantById(restaurantID);
         item.assignResturant(restaurant);
-
-
-        return itemRepository.save(item);
+        return itemService.placeOrder(item);
     }
 
 
     @PostMapping("inputResturantList")
     public Restaurant additems(@RequestBody Restaurant restaurant){
-        return restaurantRepository.save(restaurant);
+        return restaurantService.insertRestaurant(restaurant);
     }
 
 
     @GetMapping("allCustomers")
     public List<Customer> getCustomer(){
-        return customerRepository.findAll();
+        return customerService.getAllCustomers();
     }
 
     @GetMapping("allItems")
     public List<Item> getItem(){
-        return itemRepository.findAll();
+        return itemService.getAllItems();
     }
 
 
