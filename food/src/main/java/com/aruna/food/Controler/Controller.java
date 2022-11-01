@@ -78,7 +78,11 @@ public class Controller {
 
 
 
-    //Enter Resturant Item
+
+
+
+
+    //Other EndPoints
     @PutMapping("items/{itemId}/restaurant/{restaurantID}")
     public Item  enterResautrantItem(
             @PathVariable Long itemId,
@@ -99,8 +103,6 @@ public class Controller {
     public Restaurant additems(@RequestBody Restaurant restaurant){
         return restaurantRepository.save(restaurant);
     }
-
-
 
 
     @GetMapping("allCustomers")
