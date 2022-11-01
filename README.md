@@ -15,15 +15,19 @@ EX: http://localhost:8080/api/v1/Restaurant/1
 PUT: http://localhost:8080/api/v1/items/{Item_ID}/customer/{Customer_ID}
 EX: http://localhost:8080/api/v1/items/1/customer/1
 
-
+  
 ## Other Endpoints
-### Assign Items To Restaurants
+#### Assign Items To Restaurants
 EX: [PUT] http://localhost:8080/api/v1/items/1/restaurant/1
 
-### Insert a List of Restaurants
-EX: [POST] http://localhost:8080/api/v1/inputListOfRestaurant
-SAMPLE BODY :
-[
+<br/><br/>
+####  Insert a List of Restaurants
+ EX: [POST] http://localhost:8080/api/v1/inputListOfRestaurant
+ 
+ SAMPLE BODY :
+ 
+ <sup>
+ [
     {
         "address": "Tokyo",
         "name": "Tokyo-Restaurant"
@@ -37,10 +41,15 @@ SAMPLE BODY :
         "name": "Texas-Restaurant"
     }
 ]
+</sup>
 
-### Insert a List of Items with Restaurants
-EX: [POST] http://localhost:8080/api/v1/inputListOfItemsWithRestaurants
-SAMPLE BODY :
+
+<br/><br/>
+#### Insert a List of Items with Restaurants
+ EX: [POST] http://localhost:8080/api/v1/inputListOfItemsWithRestaurants
+ 
+ SAMPLE BODY :
+ <sup>
 [
     {
         "name": "Instert-Item-01",
@@ -61,17 +70,30 @@ SAMPLE BODY :
         }
     }
 ]
+</sup>
 
-### Get a List of All the Customers
+
+
+
+<br/><br/>
+#### Get a List of All the Customers
 EX: [GET] http://localhost:8080/api/v1/getAllCustomers
 
-### Get a List of All the Items
+
+
+<br/><br/>
+#### Get a List of All the Items
 EX: [GET] http://localhost:8080/api/v1/getAllItems
 
 
-### Insert a List of Customers
+
+
+<br/><br/>
+#### Insert a List of Customers
 EX: [POST] http://localhost:8080/api/v1/inputListOfCustomers
 SAMPLE BODY :
+
+ <sup>
 [
     {
         "name": "Babe Ruth",
@@ -92,6 +114,8 @@ SAMPLE BODY :
         "dob": "1998-12-19"
     }
 ]
+</sup>
+
 
 
 
