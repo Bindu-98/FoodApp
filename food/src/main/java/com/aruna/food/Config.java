@@ -1,4 +1,4 @@
-package com.aruna.food.Config;
+package com.aruna.food;
 
 import com.aruna.food.Repositiry.CustomerRepository;
 import com.aruna.food.Repositiry.ItemRepository;

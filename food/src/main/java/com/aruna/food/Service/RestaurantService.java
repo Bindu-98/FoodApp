@@ -25,4 +25,8 @@ public class RestaurantService {
     public Restaurant insertRestaurant(Restaurant restaurant) {
         return restaurantRepository.save(restaurant);
     }
+
+    public List<Restaurant> insertListOfRestaurants(List<Restaurant> restaurants) {
+        return restaurantRepository.saveAll(restaurants);
+    }
 }

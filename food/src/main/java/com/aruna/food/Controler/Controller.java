@@ -7,7 +7,6 @@ import com.aruna.food.dao.Customer;
 import com.aruna.food.dao.Item;
 import com.aruna.food.dao.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,19 +15,6 @@ import java.util.Set;
 @RestController
 @RequestMapping(path = "api/v1")
 public class Controller {
-
-//    private final CustomerRepository customerRepository;
-//    private final ItemRepository itemRepository;
-//    private final RestaurantRepository restaurantRepository;
-//
-
-//    @Autowired
-//    public Controller(CustomerRepository customerRepository, ItemRepository itemRepository, RestaurantRepository restaurantRepository) {
-//        this.customerRepository = customerRepository;
-//        this.itemRepository = itemRepository;
-//        this.restaurantRepository = restaurantRepository;
-//    }
-
 
     private final CustomerService customerService;
     private final RestaurantService restaurantService;
@@ -104,20 +90,36 @@ public class Controller {
         return itemService.placeOrder(item);
     }
 
+    //Insert a List of Restaurants
+    @PostMapping("inputListOfRestaurant")
+    public List<Restaurant> addListRestaurant(@RequestBody List<Restaurant> restaurants){
+        return restaurantService.insertListOfRestaurants(restaurants);
+    }
 
-    @PostMapping("inputResturantList")
-    public Restaurant additems(@RequestBody Restaurant restaurant){
-        return restaurantService.insertRestaurant(restaurant);
+    //Insert a List of Items with Restaurants
+    @PostMapping("inputListOfItemsWithRestaurants")
+    public List<Item> addAListOfItemsWithRestaurants(@RequestBody List<Item> itemsWithRestaurants){
+        return itemService.insertItemsWithRestaurants(itemsWithRestaurants);
     }
 
 
-    @GetMapping("allCustomers")
-    public List<Customer> getCustomer(){
+
+    //Get a List of All the Customers
+    @GetMapping("getAllCustomers")
+    public List<Customer> getAllCustomers(){
         return customerService.getAllCustomers();
     }
 
-    @GetMapping("allItems")
-    public List<Item> getItem(){
+    //Insert a List of Customers
+    @PostMapping("inputListOfCustomers")
+    public List<Customer> addListCustomers(@RequestBody List<Customer> customers){
+        return customerService.insertListOfCustomers(customers);
+    }
+
+
+    //Get a List of All the Items
+    @GetMapping("getAllItems")
+    public List<Item> getAllItems(){
         return itemService.getAllItems();
     }
 
